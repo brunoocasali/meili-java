@@ -1,0 +1,29 @@
+version: "3.8"
+
+volumes:
+  gradle:
+
+services:
+  package:
+    image: gradle:7.4.2-jdk8
+    tty: true
+    stdin_open: true
+    working_dir: /home/package
+    environment:
+      - MEILISEARCH_HOST=http://meilisearch:7700
+    depends_on:
+      - meilisearch
+    links:
+      - meilisearch
+    volumes:
+      - ./:/home/package
+      - ../../meili/meilisearch-java:/home/meilisearch-java/
+      - gradle:/home/package/.gradle
+
+  meilisearch:
+    image: getmeili/meilisearch:v0.27.2
+    ports:
+      - "7700"
+    environment:
+      - MEILI_MASTER_KEY=masterKey
+      - MEILI_NO_ANALYTICS=true
