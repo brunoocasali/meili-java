@@ -2,4 +2,4 @@
 
 ### How to run:
 
-`./gradlew run`
+`./gradlew build` & `./gradlew run`
