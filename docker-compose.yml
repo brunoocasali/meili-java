@@ -5,7 +5,7 @@ volumes:
 
 services:
   package:
-    image: azul/zulu-openjdk:17-latest
+    image: azul/zulu-openjdk:11-latest
     tty: true
     stdin_open: true
     working_dir: /home/package

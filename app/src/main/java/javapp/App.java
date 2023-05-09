@@ -4,6 +4,7 @@
 package javapp;
 
 import com.meilisearch.sdk.*;
+import com.meilisearch.sdk.model.MatchingStrategy;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,7 +38,15 @@ public class App {
 
             Thread.sleep(1000);
 
-            System.out.println(client.index("movies").search("pi"));
+            SearchRequest searchRequest = new SearchRequest("w");
+            searchRequest.setFilter(new String[]{"mass < 200"});
+            searchRequest.setSort(new String[]{"mass:asc"});
+            searchRequest.setShowMatchesPosition(true);
+            searchRequest.setMatchingStrategy(MatchingStrategy.LAST);
+            searchRequest.setAttributesToHighlight(new String[]{"title", "description"});
+
+            System.out.println(searchRequest.toString());
+            System.out.println(client.index("movies").search(searchRequest));
         } catch (Exception e) {
             System.out.println(e);
         }
