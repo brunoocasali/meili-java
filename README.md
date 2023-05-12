@@ -15,7 +15,7 @@ Checkout the [`main`](https://github.com/brunoocasali/meili-java) branch
 
 ### With Maven:
 
-Checkout the [`maven`]([https://github.com/brunoocasali/meili-java](https://github.com/brunoocasali/meili-java/tree/maven)) branch
+Checkout the [`maven`](https://github.com/brunoocasali/meili-java/tree/maven) branch
 
 #### How to run:
 
