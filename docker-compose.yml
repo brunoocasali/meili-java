@@ -1,11 +1,8 @@
 version: "3.8"
 
-volumes:
-  gradle:
-
 services:
   package:
-    image: azul/zulu-openjdk:11-latest
+    build: .
     tty: true
     stdin_open: true
     working_dir: /home/package
@@ -18,7 +15,6 @@ services:
     volumes:
       - ./:/home/package
       - ../../meili/meilisearch-java:/home/meilisearch-java/
-      - gradle:/home/package/.gradle
 
   meilisearch:
     image: getmeili/meilisearch:latest
