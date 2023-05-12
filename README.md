@@ -1,10 +1,30 @@
 ## Meili Java
 
-### How to run:
+For every version use docker-compose:
+
+`docker-compose --rm app bash` 
+
+### With Gradle:
+
+Checkout the [`main`](https://github.com/brunoocasali/meili-java) branch
+
+#### How to run:
+
+`./gradlew build` & `./gradlew run`
+
+
+### With Maven:
+
+Checkout the [`maven`](https://github.com/brunoocasali/meili-java/tree/maven) branch
+
+#### How to run:
 
 First you need to compile + download every library from `pom.xml` using:
+
+Access: `cd app/`
+
 ```
-cd app/ && mvn package
+mvn package
 ```
 
 Then to run your jar just execute:
