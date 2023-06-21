@@ -20,7 +20,7 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.1.1-jre'
-    implementation 'com.meilisearch.sdk:meilisearch-java:0.11.0'
+    implementation 'com.meilisearch.sdk:meilisearch-java:0.11.1'
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'org.json:json:20230227'
 }

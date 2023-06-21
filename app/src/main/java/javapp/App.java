@@ -5,6 +5,8 @@ package javapp;
 
 import com.meilisearch.sdk.*;
 import com.meilisearch.sdk.model.MatchingStrategy;
+import com.meilisearch.sdk.json.JacksonJsonHandler;
+import com.meilisearch.sdk.model.TaskInfo;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,39 +16,13 @@ import java.util.ArrayList;
 public class App {
     public static void main(String[] args) throws Exception {
         try {
-            JSONArray array = new JSONArray();
-            ArrayList items = new ArrayList() {{
-                add(new JSONObject().put("id", "1").put("title", "Carol").put("genres",new JSONArray("[\"Romance\",\"Drama\"]")));
-                add(new JSONObject().put("id", "2").put("title", "Wonder Woman").put("genres",new JSONArray("[\"Action\",\"Adventure\"]")));
-                add(new JSONObject().put("id", "3").put("title", "Life of Pi").put("genres",new JSONArray("[\"Adventure\",\"Drama\"]")));
-                add(new JSONObject().put("id", "4").put("title", "Mad Max: Fury Road").put("genres",new JSONArray("[\"Adventure\",\"Science Fiction\"]")));
-                add(new JSONObject().put("id", "5").put("title", "Moana").put("genres",new JSONArray("[\"Fantasy\",\"Action\"]")));
-                add(new JSONObject().put("id", "6").put("title", "Philadelphia").put("genres",new JSONArray("[\"Drama\"]")));
-            }};
+            Client clientJackson = new Client(new Config("http://localhost:7700", "masterKey", new JacksonJsonHandler()));
 
-            array.put(items);
-            String documents = array.getJSONArray(0).toString();
+            System.out.println(clientJackson.health());
 
-            Client client = new Client(new Config("http://meilisearch:7700", "masterKey"));
+            TaskInfo taskJackson = clientJackson.createIndex("movies");
 
-            System.out.println(client.health());
-            
-            Index index = client.index("movies");
-
-            // If the index 'movies' does not exist, Meilisearch creates it when you first add the documents.
-            index.addDocuments(documents);
-
-            Thread.sleep(1000);
-
-            SearchRequest searchRequest = new SearchRequest("w");
-            searchRequest.setFilter(new String[]{"mass < 200"});
-            searchRequest.setSort(new String[]{"mass:asc"});
-            searchRequest.setShowMatchesPosition(true);
-            searchRequest.setMatchingStrategy(MatchingStrategy.LAST);
-            searchRequest.setAttributesToHighlight(new String[]{"title", "description"});
-
-            System.out.println(searchRequest.toString());
-            System.out.println(client.index("movies").search(searchRequest));
+            System.out.println(taskJackson.getStatus());
         } catch (Exception e) {
             System.out.println(e);
         }
